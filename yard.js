@@ -22,13 +22,17 @@ function init() {
         ctx.fillStyle = "#000000";
         ctx.fillRect(0, -20, canvas.width / 2, 40);
 
-        for (var i = bigTurn; i <= 2 * Math.PI; i += Math.PI / 6) {
+        // for (var i = bigTurn; i <= 2 * Math.PI; i += Math.PI / 6) {
+        var N = 7;
+        for (var i = 0; i < N; i++) {
+            var ii = bigTurn + i * 2 * Math.PI / N;
+
             ctx.save();
-            ctx.rotate(Math.PI * 2 - i);
+            ctx.rotate(Math.PI * 2 - ii);
             ctx.fillStyle = "#333333";
             ctx.fillRect(0, -10, 200, 20);
             ctx.translate(200, 0);
-            ctx.rotate(i);
+            ctx.rotate(ii);
             ctx.fillStyle = "#666666";
             ctx.fillRect(0, -2, 100, 4);
             ctx.translate(100, 0);
@@ -45,7 +49,7 @@ function init() {
         smallTurn = smallTurn + Math.PI * passed / 4000;
         if (smallTurn > Math.PI / 4) smallTurn = smallTurn - Math.PI / 4;
         bigTurn = bigTurn + Math.PI * passed / 6000;
-        if (bigTurn > Math.PI / 6) bigTurn = bigTurn - Math.PI / 6;
+        //if (bigTurn > Math.PI / 6) bigTurn = bigTurn - Math.PI / 6;
 
         window.requestAnimationFrame(picture);
     }
