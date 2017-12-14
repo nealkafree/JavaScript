@@ -37,14 +37,14 @@ function init() {
             start();
         }
         if (stepsToWin === winningSteps) {
-            state = "Start";
-            start();
+            state = "Victory";
+            victory();
         }
         if (state === "Game") {
             classicPicture();
             gamePicture();
             step();
-            window.setTimeout(window.requestAnimationFrame(game), 1000);
+            window.requestAnimationFrame(game);
         }
     }
 
@@ -127,6 +127,11 @@ function init() {
     }
 
     canvas.addEventListener('click', function (e) {
+        if (state === "Victory") {
+            state = "Start";
+            window.setTimeout(start,500);
+        }
+
         if (event.layerY < canvas.height - 100 && creatures < creaturesLimit && state === "Start" &&
             planet[Math.floor(event.layerY / gridStep)][Math.floor(event.layerX / gridStep)] === false) {
             planet[Math.floor(event.layerY / gridStep)][Math.floor(event.layerX / gridStep)] = true;
@@ -183,7 +188,6 @@ function init() {
             creatures--;
             return false;
         }
-        console.log(i + " " + j);
         return planet[i][j];
     }
 
@@ -218,6 +222,13 @@ function init() {
         if (v < 0) return planet.length - 1;
         if (v >= planet.length) return 0;
         return v;
+    }
+
+    function victory() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#000000";
+        ctx.font = "200px serif";
+        ctx.fillText("Победа!", 100, canvas.height / 2);
     }
 
     start();
