@@ -67,15 +67,13 @@ function init() {
         ball.coordinateY = ball.coordinateY + passed * ball.speedY / 1000;
         choise(ball);
         /*ctx.save();
-        var cos = ball.speedX / Math.sqrt(ball.speedX * ball.speedX + ball.speedY + ball.speedY);
-        var sin = ball.speedY / Math.sqrt(ball.speedX * ball.speedX + ball.speedY + ball.speedY);
-        var r = Math.acos(cos);
-        if (cos < 0) r = Math.asin(sin);
-        if (sin < 0 && cos < 0) r = r + Math.PI;
-        ctx.rotate(r);
-        console.log(ball.speedY);
-        console.log(Math.sqrt(ball.speedX * ball.speedX + ball.speedY + ball.speedY));
-        console.log(sin);*/
+        var cos = ball.speedX / Math.sqrt(ball.speedX * ball.speedX + ball.speedY * ball.speedY);
+        var sin = ball.speedY / Math.sqrt(ball.speedX * ball.speedX + ball.speedY * ball.speedY);
+        if (sin > 0) ctx.rotate(Math.acos(cos));
+        else ctx.rotate(Math.PI * 2 - Math.acos(cos));
+        var ras = Math.sqrt(ball.coordinateX * ball.coordinateX + ball.coordinateY * ball.coordinateY);
+        var newX = ball.coordinateX + ras * cos;
+        var newY = ball.coordinateY - ras * sin;*/
         ctx.drawImage(an, ball.coordinateX, ball.coordinateY, ball.width, ball.height);
         //ctx.restore();
     }
