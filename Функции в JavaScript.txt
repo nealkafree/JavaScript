@@ -1,0 +1,19 @@
+var f = function(x){return x+1};
+var f x => x+1;
+
+function add(x,y){
+return x+y;
+}
+
+function strange(f,a){
+return function(x){
+return f(x,a);
+}
+}
+
+var inc = strange(add,1);
+console.log(inc(10));
+функция setInterval- вызов функции с периодичностью
+setInterval(print, 2000);
+setTimeout- через какое-то время
+requestAnimationFrame() - действие повторяется 60 раз в секунду, когда браузеру удобно                                                                                                        

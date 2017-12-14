@@ -1,0 +1,78 @@
+function init() {
+  console.info("initialized example 1");
+  //теперь надо обратиться к canvas
+  var canvas = document.getElementById("game");
+  var ctx = canvas.getContext('2d'); //контекст - это объект,
+                                 //с помощью которого происходит
+								 //рисование. Мы изучаем только
+								 //2d контекст, остальные еще
+								 //не стандартизованы
+
+  //на ctx можно рисовать
+  //1) прямоугольники, заполненные или не заполненные
+  //2) пути, заполненные или не заполненные. путь - это
+  //набор линий (прямых, отрезков окружности, сплайнов)
+
+  //ctx.strokeRect(); //не заполненный прямоугольник
+
+  //перед рисованием указываем стиль рисования.
+  //можно указывать цвет (как в css), можно png/jpg картинкой,
+  //можно градиентом
+  ctx.fillStyle = "black"; //"#FF0000" "rgb(255, 0, 0)"
+  ctx.fillRect(10, 10, 100, 200);  //заполненный прямоугольник
+  ctx.strokeStyle = "rgba(0,255,0,0.5)";
+  ctx.lineWidth=5;
+  ctx.lineJoin="round";
+  ctx.strokeRect(20, 40, 190, 100);
+  //координаты считаются от левого верхнего угла вправо и вниз.
+  //принципы рисования на canvas:
+  //1) сделанного не воротишь. но можно загладить. или начать все с чистого листа: clearRect(x0, y0, width, height);
+  //2) при действиях используется текущий контекст  (стили жизни меняются для всего сущего)
+
+  //путь- последоватеьность отрезков, сплайнов и др.
+  //бывают замкнутые и не очень. замкнутые можно залить. путь можно обвести.
+  ctx.beginPath();
+  ctx.moveTo(100,100); //переезд
+  ctx.lineTo(200,200); //линия
+  ctx.lineTo(300,200);
+  ctx.fill(); //вызовет closePath автоматом
+  ctx.closePath();
+  ctx.strokeStyle = "rgba(0,0,255,1)";
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(250,250,20,0,1,true);
+  ctx.stroke();
+  ctx.clearRect(0,0,500,300);
+  //Анимация:
+
+  x=y=100;
+  //setInterval(draw, 1000/60);
+  draw();
+
+
+
+  function currentTime(){
+	  //getTime - сколько секунд прошло от начала времен
+	  return new Date().getTime();
+  }
+
+  var lastWhen=currentTime();
+
+  function draw(){
+	  requestAnimationFrame(draw);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.beginPath();
+  ctx.arc(x,y,30,0,2*Math.PI);
+  ctx.fillStyle="rgba(0,255,0,0.7)";
+  ctx.fill();
+  ctx.strokeStyle="blue";
+  ctx.stroke();
+  //y=x+=1;
+  //учтем реальное время
+  var now= currentTime();
+  x= x + now - lastWhen * 20 / 1000;
+  console.log(now - lastWhen);
+  lastWhen=now;
+
+  }
+}
